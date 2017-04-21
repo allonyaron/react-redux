@@ -20,7 +20,7 @@ onTitleChange(event) {
 }
 
 onClickSave() {
-	this.props.dispatch(courseActions.createCourse(this.state.course));
+	this.props.createCourse(this.state.course);
 }
 
 courseRow(course, index) {
@@ -48,8 +48,8 @@ courseRow(course, index) {
 }
 
 CoursesPage.propTypes = {
-	dispatch: PropTypes.func.isRequired,
-	courses: PropTypes.array.isRequired
+	courses: PropTypes.array.isRequired,
+	createCourse: PropTypes.func.isRequired
 };
 
 function mapStateToProps (state, ownProps) {
@@ -59,7 +59,11 @@ function mapStateToProps (state, ownProps) {
 	};
 }
 
-//function mapDispatchToProps ()
+function mapDispatchToProps (dispatch) {
+	return {
+		createCourse: (course) => dispatch(courseActions.createCourse(course))
+	};
+}
 
 
-export default connect(mapStateToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
